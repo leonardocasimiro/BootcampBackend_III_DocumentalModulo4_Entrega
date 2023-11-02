@@ -1,6 +1,5 @@
-/*
 export interface House {
-    _id: string;
+    id: string;
     name: string;
     description: string;
     address: {
@@ -17,4 +16,3 @@ export interface House {
         }
     >
 }
-*/

@@ -1,14 +1,13 @@
-/*
 import { House } from "./house/index.js";
 
 export interface DB_house {
-  house: House[];
+  houses: House[];
 }
 
 export const db_house: DB_house = {
-  house: [
+  houses: [
     {
-      _id: "90006546",
+      id: "1",
       name: "Ribeira Charming Duplex",
       description: "Fantastic duplex apartment with three bedrooms",
       address: {
@@ -30,7 +29,7 @@ export const db_house: DB_house = {
       ]
     },
     {
-      _id: "10066928",
+      id: "2",
       name: "3 chambres au coeur du Plateau",
       description: "Notre appartement comporte 3 chambres avec chacune un lit queen",
       address: {
@@ -52,7 +51,7 @@ export const db_house: DB_house = {
       ]
     },
     {
-      _id: "95622556",
+      id: "3",
       name: "Casa Rural 3R Completa",
       description: "Fantastic duplex apartment with three bedrooms",
       address: {
@@ -75,4 +74,3 @@ export const db_house: DB_house = {
     }
   ]
 };
-*/
