@@ -1,3 +1,4 @@
+/*
 import { House } from "./house/index.js";
 
 export interface DB_house {
@@ -74,3 +75,4 @@ export const db_house: DB_house = {
     }
   ]
 };
+*/

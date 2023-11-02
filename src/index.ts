@@ -5,6 +5,7 @@ import url from "url";
 import { createRestApiServer } from "#core/servers/index.js";
 import { envConstants } from "#core/constants/index.js";
 import { booksApi } from "./books.api.js";
+import { housesApi } from "./houses.api.js";
 
 const restApiServer = createRestApiServer();
 
@@ -18,6 +19,8 @@ restApiServer.use(async (req, res, next) => {
 });
 
 restApiServer.use("/api/books", booksApi);
+
+restApiServer.use("/api/houses", housesApi);
 
 restApiServer.use(async (error, req, res, next) => {
   console.error(error);
