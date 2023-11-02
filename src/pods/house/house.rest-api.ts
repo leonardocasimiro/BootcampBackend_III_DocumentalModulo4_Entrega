@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { houseRepository } from "#dals/index.js";
-import { getHouseList, getHouse, insertHouse, updateHouse, deleteHouse } from "./mock-db-houses.js";
+import  {maphouseListFromModelToApi} from "./house.mappers.js";
+import { getHouseList, getHouse, insertHouse, updateHouse, deleteHouse } from "../../mock-db-houses.js";
 
 export const housesApi = Router();
 
@@ -17,7 +18,7 @@ housesApi
         houseList = houseList.slice(startIndex, endIndex);
       }
 
-      res.send(houseList);
+      res.send(maphouseListFromModelToApi(houseList));
     } catch (error) {
       next(error);
     }
