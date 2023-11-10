@@ -4,8 +4,8 @@ import path from "path";
 import url from "url";
 import { createRestApiServer } from "#core/servers/index.js";
 import { envConstants } from "#core/constants/index.js";
-import { booksApi } from "./books.api.js";
-import { housesApi } from "./pods/house/index.js";
+import { booksApi } from "./pods/book/books.api.js";
+import { housesApi } from "#pods/house/index.js";
 
 const restApiServer = createRestApiServer();
 

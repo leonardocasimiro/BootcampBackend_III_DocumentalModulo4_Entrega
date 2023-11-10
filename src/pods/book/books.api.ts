@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { bookRepository } from "#dals/index.js";
-import { getBook, insertBook, updateBook, deleteBook } from "./mock-db.js";
+import { getBook, insertBook, updateBook, deleteBook } from "../../dals/book/mock-db.js";
 
 export const booksApi = Router();
 

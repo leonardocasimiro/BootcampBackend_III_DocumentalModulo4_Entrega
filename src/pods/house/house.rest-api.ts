@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { houseRepository } from "#dals/index.js";
-import  {maphouseListFromModelToApi} from "./house.mappers.js";
-import { getHouseList, getHouse, insertHouse, updateHouse, deleteHouse } from "../../mock-db-houses.js";
+import  {maphouseListFromModelToApi, mapHouseFromModelToApi, mapHouseFromApiToModel} from "./house.mappers.js";
+import { getHouse, insertHouse, updateHouse, deleteHouse } from "../../mock-db-houses.js";
 
 export const housesApi = Router();
 
@@ -23,15 +23,18 @@ housesApi
       next(error);
     }
   })
-  .get("/:id", async (req, res) => {
-    const { id } = req.params;
-    const houseId = Number(id);
-    const house = await getHouse(houseId);
-    res.send(house);
+  .get("/:id", async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const house = await houseRepository.getHouse(id);
+      res.send(mapHouseFromModelToApi(house));
+    } catch (error) {
+      next(error);
+    }
   })
   .post("/", async (req, res) => {
     const house = req.body;
-    const newHouse = await insertHouse(house);
+    const newHouse = await houseRepository.saveHouse(mapHouseFromApiToModel(house));
     res.status(201).send(newHouse);
   })
   .put("/:id", async (req, res) => {

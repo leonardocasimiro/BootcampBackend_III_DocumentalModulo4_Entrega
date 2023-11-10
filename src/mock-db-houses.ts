@@ -74,11 +74,11 @@ let mockHouseList = [
     ]
   }
 ];
-
+/*
 export const getHouseList = async () => {
   return mockHouseList;
 };
-
+*/
 export const getHouse = async (id) => {
   return mockHouseList.find((house) => house.id === id);
 };
