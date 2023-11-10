@@ -18,8 +18,19 @@ const updateHouse = (house: House) => {
   return house;
 };
 
+const paginateHouseList = (houseList: House[], page: number, pageSize:number) : House[] =>{
+  let paginatedHouseList = [...houseList];
+  if (page && pageSize) {
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, paginatedHouseList.length);
+    paginatedHouseList = paginatedHouseList.slice(startIndex, endIndex);
+  }
+  return paginatedHouseList;
+};
+
 export const mockRepositoryHouse: HouseRepository = {
-  getHouseList: async () => db_house.houses,
+  getHouseList: async (page?: number, pageSize?: number) => 
+    paginateHouseList(db_house.houses, page, pageSize),
   getHouse: async (id: string) => db_house.houses.find((b) => b.id === id),
   saveHouse: async (house: House) =>
     Boolean(house.id) ? updateHouse(house) : insertHouse(house),

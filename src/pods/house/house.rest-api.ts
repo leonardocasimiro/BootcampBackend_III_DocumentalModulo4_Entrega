@@ -10,14 +10,7 @@ housesApi
     try {
       const page = Number(req.query.page);
       const pageSize = Number(req.query.pageSize);
-      let houseList = await houseRepository.getHouseList();
-
-      if (page && pageSize) {
-        const startIndex = (page - 1) * pageSize;
-        const endIndex = Math.min(startIndex + pageSize, houseList.length);
-        houseList = houseList.slice(startIndex, endIndex);
-      }
-
+      const houseList = await houseRepository.getHouseList(page, pageSize);
       res.send(maphouseListFromModelToApi(houseList));
     } catch (error) {
       next(error);
