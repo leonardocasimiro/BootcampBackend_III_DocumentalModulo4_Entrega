@@ -2,9 +2,10 @@
 import * as model from "#dals/index.js";
 // contrato de house en la api o para retornar a la web
 import * as apiModel from "./house.api-model.js";
+import {ObjectId} from "mongodb";
 
 export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
-    id: house.id,
+    id: house._id.toHexString(),
     name: house.name,
     description: house.description,
     address: {
@@ -20,8 +21,8 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     })),
   });
   
-  export const mapHouseFromApiToModel = (house: model.House): apiModel.House => ({
-    id: house.id,
+  export const mapHouseFromApiToModel = (house: apiModel.House): model.House => ({
+    _id: new ObjectId(house.id),
     name: house.name,
     description: house.description,
     address: {

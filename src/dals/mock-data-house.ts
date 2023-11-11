@@ -1,4 +1,5 @@
 import { House } from "./house/index.js";
+import {ObjectId} from "mongodb";
 
 export interface DB_house {
   houses: House[];
@@ -7,7 +8,7 @@ export interface DB_house {
 export const db_house: DB_house = {
   houses: [
     {
-      id: "1",
+      _id: new ObjectId(),
       name: "Ribeira Charming Duplex",
       description: "Fantastic duplex apartment with three bedrooms",
       address: {
@@ -29,7 +30,7 @@ export const db_house: DB_house = {
       ]
     },
     {
-      id: "2",
+      _id: new ObjectId(),
       name: "3 chambres au coeur du Plateau",
       description: "Notre appartement comporte 3 chambres avec chacune un lit queen",
       address: {
@@ -51,7 +52,7 @@ export const db_house: DB_house = {
       ]
     },
     {
-      id: "3",
+      _id: new ObjectId(),
       name: "Casa Rural 3R Completa",
       description: "Fantastic duplex apartment with three bedrooms",
       address: {

@@ -38,7 +38,7 @@ housesApi
     try {
       const { id } = req.params;
       const houseId = Number(id);
-      const house = mapHouseFromApiToModel({...req.body, id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
+      const house = mapHouseFromApiToModel({...req.body, _id: id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
       await houseRepository.saveHouse(house);
       res.sendStatus(204);
     } catch (error) {
