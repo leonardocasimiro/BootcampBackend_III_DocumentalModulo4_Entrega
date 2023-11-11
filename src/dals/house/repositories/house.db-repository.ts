@@ -14,9 +14,17 @@ export const dbRepository: HouseRepository = {
     .toArray();
   },
 
-  getHouse: async (id: string) => {
-    throw new Error("Not implemented");
+  getHouse: async (id: string): Promise<House | null> => {
+    const result = await db?.collection('houses').findOne({ _id: new ObjectId(id) });
+  
+    if (result) {
+      // Hacer un cast al tipo House, asumiendo que result tiene las propiedades correctas
+      return result as House;
+    } else {
+      return null;
+    }
   },
+  
   saveHouse: async (house: House) => {
     const { insertedId} = await db.collection('houses').insertOne(house);
     return {
@@ -25,6 +33,7 @@ export const dbRepository: HouseRepository = {
     }
 
   },
+
   deleteHouse: async (id: string) => {
     const { deletedCount } = await db?.collection('houses').deleteOne({_id: new ObjectId(id),});
     return deletedCount === 1;
