@@ -21,6 +21,10 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     })),
   });
   
+  export const maphouseListFromModelToApi = (
+    houseList: model.House[]
+  ): apiModel.House[] => houseList.map(mapHouseFromModelToApi);
+  
   export const mapHouseFromApiToModel = (house: apiModel.House): model.House => ({
     _id: new ObjectId(house.id),
     name: house.name,
@@ -38,9 +42,5 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     })),
   });
   
-
-  export const maphouseListFromModelToApi = (
-    houseList: model.House[]
-  ): apiModel.House[] => houseList.map(mapHouseFromModelToApi);
-  
+  export const mapHouseListFromApiToModel = (houseList: apiModel.House[]): model.House[] => []
   
