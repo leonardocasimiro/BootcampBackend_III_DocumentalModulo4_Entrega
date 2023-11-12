@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { houseRepository } from "#dals/index.js";
+import { bookRepository, houseRepository } from "#dals/index.js";
 import  {maphouseListFromModelToApi, mapHouseFromModelToApi, mapHouseFromApiToModel} from "./house.mappers.js";
 //import { deleteHouse } from "../../mock-db-houses.js";
 
@@ -20,7 +20,11 @@ housesApi
     try {
       const { id } = req.params;
       const house = await houseRepository.getHouse(id);
-      res.send(mapHouseFromModelToApi(house));
+      if (house){
+        res.send(mapHouseFromModelToApi(house));
+      }else{
+        res.sendStatus(404);
+      }
     } catch (error) {
       next(error);
     }
@@ -37,10 +41,13 @@ housesApi
   .put("/:id", async (req, res, next) => {
     try {
       const { id } = req.params;
-      const houseId = Number(id);
-      const house = mapHouseFromApiToModel({...req.body, _id: id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
-      await houseRepository.saveHouse(house);
-      res.sendStatus(204);
+      if (await bookRepository.getBook(id)){
+        const house = mapHouseFromApiToModel({...req.body, _id: id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
+        await houseRepository.saveHouse(house);
+        res.sendStatus(204);
+      }else{
+        res.sendStatus(404);
+      }
     } catch (error) {
       next(error);
     }
@@ -48,8 +55,8 @@ housesApi
   .delete("/:id", async (req, res, next) => {
     try {
       const { id } = req.params;
-      await houseRepository.deleteHouse(id);
-      res.sendStatus(204);
+      const isDeleted = await houseRepository.deleteHouse(id);
+      res.sendStatus(isDeleted ? 204 : 404);
     } catch (error) {
       next(error);
     }
