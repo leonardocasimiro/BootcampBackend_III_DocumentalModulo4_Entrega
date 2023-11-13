@@ -13,6 +13,7 @@ export interface House {
         {
           _id: string,
           comments: string,
+          date: Date,
         }
     >
 }

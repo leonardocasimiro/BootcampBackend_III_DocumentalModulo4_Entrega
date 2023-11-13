@@ -18,6 +18,7 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     reviews: house.reviews.map(review => ({
         _id: review._id,
         comments: review.comments,
+        date: review.date,
     })),
   });
   
@@ -39,6 +40,7 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     reviews: house.reviews.map(review => ({
         _id: review._id,
         comments: review.comments,
+        date: new Date(),
     })),
   });
   
