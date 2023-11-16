@@ -38,10 +38,24 @@ housesApi
       next(error);
     }
   })
+  .patch("/:id/addComment", async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      if (await houseRepository.getHouse(id)){
+        const house = mapHouseFromApiToModel({...req.body, _id: id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
+        await houseRepository.saveHouse(house);
+        res.sendStatus(204);
+      }else{
+        res.sendStatus(404);
+      }
+    } catch (error) {
+      next(error);
+    }
+  })
   .put("/:id", async (req, res, next) => {
     try {
       const { id } = req.params;
-      if (await bookRepository.getBook(id)){
+      if (await houseRepository.getHouse(id)){
         const house = mapHouseFromApiToModel({...req.body, _id: id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
         await houseRepository.saveHouse(house);
         res.sendStatus(204);
