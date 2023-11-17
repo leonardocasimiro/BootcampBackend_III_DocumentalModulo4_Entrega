@@ -29,6 +29,8 @@ const paginateHouseList = (houseList: House[], page: number, pageSize:number) : 
   return paginatedHouseList;
 };
 
+
+
 export const mockRepositoryHouse: HouseRepository = {
   getHouseList: async (page?: number, pageSize?: number) => 
     paginateHouseList(db_house.houses, page, pageSize),
@@ -36,7 +38,21 @@ export const mockRepositoryHouse: HouseRepository = {
   saveHouse: async (house: House) =>
     Boolean(house._id) ? updateHouse(house) : insertHouse(house),
   insertCommentInHouse: async (reviewIn: Review, idIn: ObjectId) => {
-      return true;},
+    const filter = { "_id": idIn };
+    const update = {
+        reviews: reviewIn,
+    };
+    const houseToUpdate = db_house.houses.find((house) => house._id.toString() === idIn.toHexString());
+    // Si la casa existe, agrega el nuevo comentario
+    if (houseToUpdate) {
+      houseToUpdate.reviews.push(reviewIn);
+      console.log("Comentario agregado con éxito:", update);
+    } else {
+      console.log("No se encontró la casa con el ID proporcionado.");
+    }
+    console.log(update);
+    return true;
+  },
   deleteHouse: async (id: string) => {
     db_house.houses = db_house.houses.filter((b) => b._id.toHexString() !== id);
     return true;

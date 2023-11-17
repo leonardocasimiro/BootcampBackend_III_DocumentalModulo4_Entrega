@@ -17,7 +17,7 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     beds: house.beds,
     reviews: house.reviews.map(review => ({
         _id: review._id,
-        comments: review.comments,
+        comments: review.comment,
         reviewer: review.reviewer,
         date: review.date,
     })),
@@ -40,7 +40,7 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
     beds: house.beds,
     reviews: house.reviews.map(review => ({
         _id: review._id,
-        comments: review.comments,
+        comment: review.comments,
         reviewer: review.reviewer,
         date: new Date(),
     })),

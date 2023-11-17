@@ -45,8 +45,6 @@ export const dbRepository: HouseRepository = {
     
     const result = await db.collection('houses').updateOne(filter, update);
     //const result = await db.collection('houses').findOneAndUpdate(filter, update);
-    
-    // result.value contendrá el documento actualizado con la nueva revisión
     console.log(result);
     return true;
   },
