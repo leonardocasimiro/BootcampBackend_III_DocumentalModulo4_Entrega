@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { bookRepository, houseRepository } from "#dals/index.js";
-import  {maphouseListFromModelToApi, mapHouseFromModelToApi, mapHouseFromApiToModel} from "./house.mappers.js";
+import  {maphouseListFromModelToApi, mapHouseFromModelToApi, mapHouseFromApiToModel, mapReviewFromApiModelToModel} from "./house.mappers.js";
+import { ObjectId } from "mongodb";
 //import { deleteHouse } from "../../mock-db-houses.js";
 
 export const housesApi = Router();
@@ -41,9 +42,8 @@ housesApi
    .patch("/:id/addComment", async (req, res, next) => {
     try {
       const { id } = req.params;
-      if (await houseRepository.getHouse(id)){
-        const house = await houseRepository.getHouse(id);
-        await houseRepository.insertCommentInHouse({...house}, req.body); 
+      if (id){
+        await houseRepository.insertCommentInHouse(mapReviewFromApiModelToModel(req.body), new ObjectId(id)); 
         res.sendStatus(204);
       }else{
         res.sendStatus(404);

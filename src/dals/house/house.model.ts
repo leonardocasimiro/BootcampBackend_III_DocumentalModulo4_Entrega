@@ -20,3 +20,10 @@ export interface House {
         }
     >
 }
+
+export interface Review  {
+    _id: string;
+    comment: string;
+    //reviewer: string;
+    date: Date;
+}

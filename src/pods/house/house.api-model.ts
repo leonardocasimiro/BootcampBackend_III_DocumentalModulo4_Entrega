@@ -17,3 +17,8 @@ export interface House {
         }
     >
 }
+
+export interface Review {
+    comment: string;
+    //reviewer: string;
+  }

@@ -46,3 +46,8 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
   
   export const mapHouseListFromApiToModel = (houseList: apiModel.House[]): model.House[] => []
 
+  export const mapReviewFromApiModelToModel = (review: apiModel.Review): model.Review => ({
+      _id: new ObjectId().toString(),
+      comment: review.comment,
+      date: new Date(),
+  });

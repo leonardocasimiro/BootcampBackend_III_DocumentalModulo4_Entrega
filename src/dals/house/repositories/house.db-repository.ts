@@ -1,6 +1,6 @@
 import {db} from '#core/servers/index.js';
 import { HouseRepository } from "./house.repository.js";
-import { House } from "../house.model.js";
+import { House , Review} from "../house.model.js";
 import {ObjectId} from "mongodb";
 
 export const dbRepository: HouseRepository = {
@@ -34,20 +34,21 @@ export const dbRepository: HouseRepository = {
 
   },
 
-  insertCommentInHouse: async (house: House, commentIn: string) => {
-    
-    const newReview = {
-      _id: new Date().getTime().toString(),  
-      comments: commentIn,
-      date: new Date(),  
+  insertCommentInHouse: async (reviewIn: Review, idIn: ObjectId) => {
+    const filter = { "_id": idIn };
+
+    const update = {
+      $push: {
+        reviews: reviewIn,
+      },
     };
-
-    const { insertedId} = await db.collection('houses').insertOne({...house, newReview});
-    return {
-      ...house,
-      _id: insertedId
-    }
-
+    
+    const result = await db.collection('houses').updateOne(filter, update);
+    //const result = await db.collection('houses').findOneAndUpdate(filter, update);
+    
+    // result.value contendrá el documento actualizado con la nueva revisión
+    console.log(result);
+    return true;
   },
   
   deleteHouse: async (id: string) => {

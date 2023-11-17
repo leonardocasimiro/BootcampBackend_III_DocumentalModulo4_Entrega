@@ -1,6 +1,6 @@
 import {ObjectId} from "mongodb";
 import { HouseRepository } from "./house.repository.js";
-import { House } from "../house.model.js";
+import { House, Review } from "../house.model.js";
 import { db_house } from "../../mock-data-house.js";
 
 const insertHouse = (house: House) => {
@@ -35,6 +35,8 @@ export const mockRepositoryHouse: HouseRepository = {
   getHouse: async (id: string) => db_house.houses.find((b) => b._id.toHexString() === id ),
   saveHouse: async (house: House) =>
     Boolean(house._id) ? updateHouse(house) : insertHouse(house),
+  insertCommentInHouse: async (reviewIn: Review, idIn: ObjectId) => {
+      return true;},
   deleteHouse: async (id: string) => {
     db_house.houses = db_house.houses.filter((b) => b._id.toHexString() !== id);
     return true;
