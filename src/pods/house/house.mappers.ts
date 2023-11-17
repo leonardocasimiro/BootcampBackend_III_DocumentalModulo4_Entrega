@@ -49,5 +49,6 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
   export const mapReviewFromApiModelToModel = (review: apiModel.Review): model.Review => ({
       _id: new ObjectId().toString(),
       comment: review.comment,
+      reviewer: review.reviewer,
       date: new Date(),
   });
