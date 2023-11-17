@@ -45,4 +45,4 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
   });
   
   export const mapHouseListFromApiToModel = (houseList: apiModel.House[]): model.House[] => []
-  
+

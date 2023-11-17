@@ -38,12 +38,12 @@ housesApi
       next(error);
     }
   })
-  .patch("/:id/addComment", async (req, res, next) => {
+   .patch("/:id/addComment", async (req, res, next) => {
     try {
       const { id } = req.params;
       if (await houseRepository.getHouse(id)){
-        const house = mapHouseFromApiToModel({...req.body, _id: id}); //HAcemos un "destructuring" del req.body en house, pero el campo id le meto el que viene en la URL, no el que viene en el body
-        await houseRepository.saveHouse(house);
+        const house = await houseRepository.getHouse(id);
+        await houseRepository.insertCommentInHouse({...house}, req.body); 
         res.sendStatus(204);
       }else{
         res.sendStatus(404);

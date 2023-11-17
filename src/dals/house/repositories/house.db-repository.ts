@@ -34,6 +34,22 @@ export const dbRepository: HouseRepository = {
 
   },
 
+  insertCommentInHouse: async (house: House, commentIn: string) => {
+    
+    const newReview = {
+      _id: new Date().getTime().toString(),  
+      comments: commentIn,
+      date: new Date(),  
+    };
+
+    const { insertedId} = await db.collection('houses').insertOne({...house, newReview});
+    return {
+      ...house,
+      _id: insertedId
+    }
+
+  },
+  
   deleteHouse: async (id: string) => {
     const { deletedCount } = await db?.collection('houses').deleteOne({_id: new ObjectId(id),});
     return deletedCount === 1;
