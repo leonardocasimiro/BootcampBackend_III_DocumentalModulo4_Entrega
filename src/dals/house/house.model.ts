@@ -16,6 +16,7 @@ export interface House {
         {
           _id: string,
           comments: string,
+          reviewer: string;
           date: Date,
         }
     >
